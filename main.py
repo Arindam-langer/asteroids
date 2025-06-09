@@ -11,6 +11,8 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    score = 0
+    font = pygame.font.Font(None,36)
 
     asteroids = pygame.sprite.Group() ##bunch of assteroids
     updatable = pygame.sprite.Group()
@@ -40,12 +42,14 @@ def main():
             for shot in shots:
                 if ass.collision(shot):
                     shot.kill()
+                    score += int(100 / ass.radius)
                     ass.split()
         screen.fill("black")            
         player.draw(screen)
         for obj in drawable:
             obj.draw(screen)
-
+        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_text, (20, 20))
         pygame.display.flip()
         dt = clock.tick(60)/1000  #fps
 
