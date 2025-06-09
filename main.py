@@ -37,8 +37,10 @@ def main():
             if ass.collision(player):
                 print("over!")
                 sys.exit()
-
-        player.update(dt)
+            for shot in shots:
+                if ass.collision(shot):
+                    shot.kill()
+                    ass.split()
         screen.fill("black")            
         player.draw(screen)
         for obj in drawable:
